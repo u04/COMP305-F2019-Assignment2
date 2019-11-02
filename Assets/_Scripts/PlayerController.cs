@@ -11,14 +11,18 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D playerRigidbody2D;
     public float moveForce;
     public float jumpForce;
+    public bool isGrounded;
+    public Transform groundTarget;
     void Start()
     {
         playerAnimState = PlayerAnimState.IDLE;
+        isGrounded = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        isGrounded = Physics2D.Linecast(transform.position, groundTarget.position, 1 << LayerMask.NameToLayer("Ground"));
         //idle state
         if (Input.GetAxis("Horizontal") == 0)
         {
@@ -42,11 +46,12 @@ public class PlayerController : MonoBehaviour
             playerRigidbody2D.AddForce(Vector2.left * moveForce);
         }
         //jump
-        if (Input.GetAxis("Jump") > 0)
+        if ((Input.GetAxis("Jump") > 0) && (isGrounded))
         {
             playerAnimState = PlayerAnimState.JUMP;
             playerAnimator.SetInteger("AnimState", (int) PlayerAnimState.JUMP);
             playerRigidbody2D.AddForce(Vector2.up * jumpForce);
+            isGrounded = true;
         }
 
     }
