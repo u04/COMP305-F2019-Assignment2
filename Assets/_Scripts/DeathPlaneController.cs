@@ -5,22 +5,25 @@ using UnityEngine;
 [System.Serializable]
 public class DeathPlaneController : MonoBehaviour
 {
-    public GameObject activeCheckpoint;
+    public Transform activeCheckpoint;
     public GameObject player;
     // Start is called before the first frame update
-    void Start()
-    {
+    // void Start()
+    // {
         
-    }
+    // }
 
-    // Update is called once per frame
-    void Update()
-    {
+    // // Update is called once per frame
+    // void Update()
+    // {
         
-    }
-    public void OnCollisionEnter2D(Collision2D collision)
+    // }
+    public void OnCollisionEnter2D(Collision2D other)
     {
-        if(other)
-            //watched up to 49:34 le5 part 2 
+        if(other.gameObject.tag == "Player") 
+        {
+            other.gameObject.transform.position = activeCheckpoint.position;
+ 
+        }
     }
 }
