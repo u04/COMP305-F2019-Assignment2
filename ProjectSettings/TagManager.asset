@@ -6,6 +6,7 @@ TagManager:
   tags:
   - world
   - Fire
+  - Coin
   layers:
   - Default
   - TransparentFX
